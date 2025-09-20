@@ -1,0 +1,12 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"hello_world": "Hello, {name} from en!",
+	"cv_email": "Email",
+	"cv_phone": "Phone",
+	"cv_address": "Address",
+	"cv_about": "About",
+	"cv_section_experiences": "Experience",
+	"cv_section_education": "Education",
+	"cv_present": "Present",
+	"cv_obtained_in": "Obtained in {year}"
+}
