@@ -11,7 +11,6 @@
 {#if cv}
 	<div class="cv-page">
 		<div class="cv">
-			<!-- En-tête -->
 			<header class="cv__header">
 				<div class="cv__photo-placeholder"></div>
 				<div class="cv__header-content">
@@ -29,7 +28,6 @@
 				</div>
 			</header>
 
-			<!-- Expériences -->
 			<section class="cv__section">
 				<h2 class="cv__section-title">{m.cv_section_experiences()}</h2>
 				{#each cv.experiences as experience (experience.id)}
@@ -51,7 +49,6 @@
 				{/each}
 			</section>
 
-			<!-- Formations -->
 			<section class="cv__section">
 				<h2 class="cv__section-title">{m.cv_section_education()}</h2>
 				{#each cv.educations as education (education.id)}
@@ -79,9 +76,6 @@
 {/if}
 
 <style lang="scss">
-  /* Polices et réinitialisation */
-  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
-
   .cv-page {
     @apply bg-gray-50 p-2 print:p-0 min-h-screen flex justify-center;
     font-family: 'Open Sans', sans-serif;
@@ -200,7 +194,6 @@
     }
   }
 
-  /* Impression */
   @media print {
     .cv-page {
       @apply p-0;

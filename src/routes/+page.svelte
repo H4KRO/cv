@@ -1,15 +1,16 @@
 <script lang="ts">
-	import { setLocale } from '$lib/paraglide/runtime';
+	import { m } from '$lib/paraglide/messages';
 	import CV from '$lib/components/CV.svelte';
+	import LocaleSelector from '$lib/components/LocaleSelector.svelte';
 
 	export let data;
 	const { cv, availableLocales } = data;
 </script>
 
-<ul>
-	{#each availableLocales as locale (locale)}
-		<li><button onclick={() => setLocale(locale)}>{locale}</button></li>
-	{/each}
-</ul>
+<title>{m.title()}</title>
 
-<CV cv="{cv}" />
+<div class="sticky top-0">
+	<LocaleSelector {availableLocales} />
+</div>
+
+<CV {cv} />
