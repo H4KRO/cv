@@ -12,14 +12,13 @@
 	<div class="cv-page">
 		<div class="cv">
 			<header class="cv-header">
-				<div class="cv-header__photo"></div>
 				<div class="cv-header__content">
 					<h1 class="cv-header__title">{cv.header.name}</h1>
 					<h2 class="cv-header__subtitle">{cv.header.title}</h2>
 					<div class="cv-contact">
-						<p class="cv-contact__item"><strong>{m.cv_email()}</strong>: {cv.header.mail}</p>
-						<p class="cv-contact__item"><strong>{m.cv_phone()}</strong>: {cv.header.phone}</p>
-						<p class="cv-contact__item"><strong>{m.cv_address()}</strong>: {cv.header.address}</p>
+						<p class="cv-contact__item"><a href="mailto:{cv.header.mail}">{cv.header.mail}</a></p>
+						<p class="cv-contact__item"><a href="tel:{cv.header.phone}">{cv.header.phone}</a></p>
+						<p class="cv-contact__item"><a href="https://maps.google.com/?q={cv.header.address}" target="_blank" rel="noopener noreferrer">{cv.header.address}</a></p>
 					</div>
 					<div class="cv-about">
 						<h3 class="cv-about__title">{m.cv_about()}</h3>
@@ -81,122 +80,117 @@
   }
 
   .cv {
-    @apply bg-white w-full max-w-[210mm] p-4 print:p-2 mx-auto;
-    box-sizing: border-box;
+    @apply grid grid-cols-[2fr_5fr] auto-rows-min gap-2 bg-white w-full max-w-[210mm] p-4 print:p-2 mx-auto;
   }
 
   /* Header block */
   .cv-header {
     @apply flex flex-col sm:flex-row items-start mb-4 pb-2 border-b border-blue-100;
-  }
 
-  .cv-header__photo {
-    @apply w-20 h-20 rounded-full bg-blue-100 mr-4 mb-2 sm:mb-0 flex-shrink-0;
-  }
+		&__content {
+			@apply flex-1;
+		}
 
-  .cv-header__content {
-    @apply flex-1;
-  }
+		&__title {
+			@apply text-xl font-bold text-gray-900 mb-0.5;
+		}
 
-  .cv-header__title {
-    @apply text-xl font-bold text-gray-900 mb-0.5;
-  }
-
-  .cv-header__subtitle {
-    @apply text-lg font-semibold text-blue-600 mb-2;
+		&__subtitle {
+			@apply text-lg font-semibold text-blue-600 mb-2;
+		}
   }
 
   /* Contact block */
   .cv-contact {
     @apply grid grid-cols-1 gap-y-0.5 mb-2 text-sm;
-  }
 
-  .cv-contact__item {
-    @apply flex items-baseline;
-  }
+		&__item {
+			@apply flex items-baseline;
+		}
 
-  .cv-contact__item strong {
-    @apply mr-2 text-gray-600;
+		&__item strong {
+			@apply mr-2 text-gray-600;
+		}
   }
 
   /* About block */
   .cv-about {
     @apply mt-2;
-  }
 
-  .cv-about__title {
-    @apply text-sm font-semibold text-gray-700 uppercase tracking-wider mb-1;
-  }
+		&__title {
+      @apply text-sm font-semibold text-gray-700 uppercase tracking-wider mb-1;
+    }
 
-  .cv-about__text {
-    @apply text-gray-700 text-sm leading-snug;
+		&__text {
+      @apply text-gray-700 text-sm leading-snug;
+    }
   }
 
   /* Section block */
   .cv-section {
-    @apply mb-3;
-  }
+    @apply mb-3 min-h-[min-content];
 
-  .cv-section__title {
-    @apply text-lg font-bold text-gray-900 mb-2 pb-0.5 border-b border-blue-200 uppercase tracking-wider;
+		&__title {
+      @apply text-lg font-bold text-gray-900 mb-2 pb-0.5 border-b border-blue-200 uppercase tracking-wider;
+    }
   }
 
   /* Experience block */
   .cv-experience {
     @apply mb-3 pb-2;
-  }
 
-  .cv-experience__header {
-    @apply mb-1;
-  }
+		&__header {
+      @apply mb-1;
+		}
 
-  .cv-experience__title {
-    @apply text-base font-semibold text-gray-900;
-  }
+		&__title {
+      @apply text-base font-semibold text-gray-900;
+		}
 
-  .cv-experience__company {
-    @apply text-gray-600 italic text-sm;
-  }
+		&__company {
+      @apply text-gray-600 italic text-sm;
+		}
 
-  .cv-experience__dates {
-    @apply text-gray-500 text-xs font-medium;
-  }
+		&__dates {
+      @apply text-gray-500 text-xs font-medium;
+		}
 
-  .cv-experience__responsibilities {
-    @apply list-disc pl-4 space-y-0.5 text-gray-700 mt-1;
-  }
+		&__responsibilities {
+      @apply list-disc pl-4 space-y-0.5 text-gray-700 mt-1;
+    }
 
-  .cv-experience__responsibility {
-    @apply text-sm marker:text-blue-500;
+		&__responsibility {
+      @apply text-sm marker:text-blue-500;
+		}
   }
 
   /* Education block */
   .cv-education {
     @apply mb-3 pb-2;
-  }
 
-  .cv-education__header {
-    @apply mb-1;
-  }
+		&__header {
+      @apply mb-1;
+		}
 
-  .cv-education__grade {
-    @apply text-base font-semibold text-gray-900;
-  }
+		&__grade {
+      @apply text-base font-semibold text-gray-900;
+		}
 
-  .cv-education__school {
-    @apply text-gray-600 italic text-sm;
-  }
+		&__school {
+      @apply text-gray-600 italic text-sm;
+    }
 
-  .cv-education__dates {
-    @apply text-gray-500 text-xs font-medium;
-  }
+		&__dates {
+      @apply text-gray-500 text-xs font-medium;
+		}
 
-  .cv-education__courses {
-    @apply list-disc pl-4 space-y-0.5 text-gray-700 mt-1;
-  }
+		&__courses {
+      @apply list-disc pl-4 space-y-0.5 text-gray-700 mt-1;
+    }
 
-  .cv-education__course {
-    @apply text-sm marker:text-blue-500;
+		&__course {
+      @apply text-sm marker:text-blue-500;
+		}
   }
 
   @media print {

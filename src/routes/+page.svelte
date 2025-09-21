@@ -9,7 +9,7 @@
 
 <title>{m.title()}</title>
 
-<div class="sticky top-0">
+<div class="sticky top-0 print:hidden">
 	<LocaleSelector {availableLocales} />
 </div>
 
