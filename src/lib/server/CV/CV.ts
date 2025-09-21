@@ -1,5 +1,5 @@
 import { db } from '$lib/server/db'
-import { type CV, education, experience, header, locale } from '$lib/server/db/schema';
+import { competence, type CV, education, experience, header, locale } from '$lib/server/db/schema';
 import { eq } from 'drizzle-orm'
 
 async function getHeaderByLocale(localeId: string) {
@@ -20,14 +20,21 @@ async function getEducationsByLocale(localeId: string) {
 	})
 }
 
+async function getCompetencesByLocale(localeId: string) {
+	return db.query.competence.findMany({
+		where: eq(competence.locale, localeId),
+	})
+}
+
 export async function getCVByLocale(localeId: string): Promise<CV | null> {
-	const [localeRecord, header, experiences, educations] = await Promise.all([
+	const [localeRecord, header, experiences, educations, competences] = await Promise.all([
 		db.query.locale.findFirst({
 			where: eq(locale.id, localeId),
 		}),
 		getHeaderByLocale(localeId),
 		getExperiencesByLocale(localeId),
 		getEducationsByLocale(localeId),
+		getCompetencesByLocale(localeId),
 	])
 
 	if (!localeRecord || !header) {
@@ -39,6 +46,7 @@ export async function getCVByLocale(localeId: string): Promise<CV | null> {
 		header,
 		experiences,
 		educations,
+		competences
 	}
 }
 

@@ -4,13 +4,14 @@
 	import LocaleSelector from '$lib/components/LocaleSelector.svelte';
 
 	export let data;
-	const { cv, availableLocales } = data;
+	const { cv, availableLocales, currentLocale } = data;
 </script>
 
 <title>{m.title()}</title>
 
-<div class="sticky top-0 print:hidden">
-	<LocaleSelector {availableLocales} />
+<div class="fixed bottom-2 right-2 md:top-2 md:left-2 md:bottom-auto md:right-auto print:hidden z-50">
+	<LocaleSelector {availableLocales} {currentLocale} />
 </div>
+
 
 <CV {cv} />

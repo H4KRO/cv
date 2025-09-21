@@ -1,9 +1,10 @@
 import { getAvailableLocales, getCVByLocale } from '$lib/server/CV/CV';
-import type { PageServerLoad } from '../../.svelte-kit/types/src/routes/cv/$types'
 import { getLocale } from '$lib/paraglide/runtime'
+import type { PageServerLoad } from '../../.svelte-kit/types/src/routes/$types';
 
 export const load: PageServerLoad = async () => {
-	const cv = await getCVByLocale(getLocale())
+	const currentLocale = getLocale()
+	const cv = await getCVByLocale(currentLocale)
 	const availableLocales = await getAvailableLocales()
-	return { cv, availableLocales }
+	return { cv, availableLocales, currentLocale }
 }

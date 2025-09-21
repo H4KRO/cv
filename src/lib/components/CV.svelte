@@ -11,65 +11,80 @@
 {#if cv}
 	<div class="cv-page">
 		<div class="cv">
-			<header class="cv-header">
-				<div class="cv-header__content">
-					<h1 class="cv-header__title">{cv.header.name}</h1>
-					<h2 class="cv-header__subtitle">{cv.header.title}</h2>
-					<div class="cv-contact">
-						<p class="cv-contact__item"><a href="mailto:{cv.header.mail}">{cv.header.mail}</a></p>
-						<p class="cv-contact__item"><a href="tel:{cv.header.phone}">{cv.header.phone}</a></p>
-						<p class="cv-contact__item"><a href="https://maps.google.com/?q={cv.header.address}" target="_blank" rel="noopener noreferrer">{cv.header.address}</a></p>
-					</div>
-					<div class="cv-about">
-						<h3 class="cv-about__title">{m.cv_about()}</h3>
-						<p class="cv-about__text">{cv.header.about}</p>
-					</div>
-				</div>
-			</header>
-
-			<section class="cv-section">
-				<h2 class="cv-section__title">{m.cv_section_experiences()}</h2>
-				{#each cv.experiences as experience (experience.id)}
-					<div class="cv-experience">
-						<div class="cv-experience__header">
-							<h3 class="cv-experience__title">{experience.title}</h3>
-							<p class="cv-experience__company">{experience.company}</p>
-							<p class="cv-experience__dates">
-								{new Date(experience.startDate).toLocaleDateString(dateLocale, { month: 'short', year: 'numeric' })} –
-								{experience.endDate ? new Date(experience.endDate).toLocaleDateString(dateLocale, { month: 'short', year: 'numeric' }) : m.cv_present()}
-							</p>
+			<div class="cv__left">
+				<header class="cv-header">
+					<div class="cv-header__content">
+						<h1 class="cv-header__title">{cv.header.name}</h1>
+						<h2 class="cv-header__subtitle">{cv.header.title}</h2>
+						<div class="cv-contact">
+							<p class="cv-contact__item"><a href="mailto:{cv.header.mail}">{cv.header.mail}</a></p>
+							<p class="cv-contact__item"><a href="tel:{cv.header.phone}">{cv.header.phone}</a></p>
+							<p class="cv-contact__item"><a href="https://maps.google.com/?q={cv.header.address}" target="_blank" rel="noopener noreferrer">{cv.header.address}</a></p>
 						</div>
-						<ul class="cv-experience__responsibilities">
-							{#each experience.responsibilities as responsibility (responsibility)}
-								<li class="cv-experience__responsibility">{responsibility}</li>
-							{/each}
-						</ul>
-					</div>
-				{/each}
-			</section>
-
-			<section class="cv-section">
-				<h2 class="cv-section__title">{m.cv_section_education()}</h2>
-				{#each cv.educations as education (education.id)}
-					<div class="cv-education">
-						<div class="cv-education__header">
-							<h3 class="cv-education__grade">{education.grade}</h3>
-							<p class="cv-education__school">{education.school}</p>
-							<p class="cv-education__dates">
-								{education.startDate === education.endDate ? m.cv_obtained_in({ year: new Date(education.endDate).toLocaleDateString(dateLocale, { year: 'numeric' }) }) :
-									`${new Date(education.startDate).toLocaleDateString(dateLocale, { year: 'numeric' })} – ${new Date(education.endDate).toLocaleDateString(dateLocale, { year: 'numeric' })}`}
-							</p>
+						<div class="cv-about">
+							<h3 class="cv-about__title">{m.cv_about()}</h3>
+							<p class="cv-about__text">{cv.header.about}</p>
 						</div>
-						{#if education.courses && education.courses.length > 0}
-							<ul class="cv-education__courses">
-								{#each education.courses as course (course)}
-									<li class="cv-education__course">{course}</li>
+					</div>
+				</header>
+				<section class="cv-section">
+					<h2 class="cv-section__title">{m.cv_section_education()}</h2>
+					{#each cv.educations as education (education.id)}
+						<div class="cv-education">
+							<div class="cv-education__header">
+								<h3 class="cv-education__grade">{education.grade}</h3>
+								<p class="cv-education__school">{education.school}</p>
+								<p class="cv-education__dates">
+									{education.startDate === education.endDate ? m.cv_obtained_in({ year: new Date(education.endDate).toLocaleDateString(dateLocale, { year: 'numeric' }) }) :
+										`${new Date(education.startDate).toLocaleDateString(dateLocale, { year: 'numeric' })} – ${new Date(education.endDate).toLocaleDateString(dateLocale, { year: 'numeric' })}`}
+								</p>
+							</div>
+							{#if education.courses && education.courses.length > 0}
+								<ul class="cv-education__courses">
+									{#each education.courses as course (course)}
+										<li class="cv-education__course">{course}</li>
+									{/each}
+								</ul>
+							{/if}
+						</div>
+					{/each}
+				</section>
+				<section class="cv-section">
+					<h2 class="cv-section__title">{m.cv_section_competences()}</h2>
+					{#each cv.competences as competence (competence.id)}
+						<p class="cv-competence">
+							<span class="cv-competence__name">
+								{competence.name}
+							</span>
+							<span class="cv-competence__description">
+								{competence.description}
+							</span>
+						</p>
+					{/each}
+				</section>
+			</div>
+			<div class="cv__right">
+				<section class="cv-section">
+					<h2 class="cv-section__title">{m.cv_section_experiences()}</h2>
+					{#each cv.experiences as experience (experience.id)}
+						<div class="cv-experience">
+							<div class="cv-experience__header">
+								<h3 class="cv-experience__title">{experience.title}</h3>
+								<p class="cv-experience__company">{experience.company}</p>
+								<p class="cv-experience__dates">
+									{new Date(experience.startDate).toLocaleDateString(dateLocale, { month: 'short', year: 'numeric' })} –
+									{experience.endDate ? new Date(experience.endDate).toLocaleDateString(dateLocale, { month: 'short', year: 'numeric' }) : m.cv_present()}
+								</p>
+							</div>
+							<ul class="cv-experience__responsibilities">
+								{#each experience.responsibilities as responsibility (responsibility)}
+									<li class="cv-experience__responsibility">{responsibility}</li>
 								{/each}
 							</ul>
-						{/if}
-					</div>
-				{/each}
-			</section>
+						</div>
+					{/each}
+				</section>
+			</div>
 		</div>
 	</div>
 {/if}
@@ -80,12 +95,20 @@
   }
 
   .cv {
-    @apply grid grid-cols-[2fr_5fr] auto-rows-min gap-2 bg-white w-full max-w-[210mm] p-4 print:p-2 mx-auto;
+    @apply flex flex-row flex-wrap gap-5 bg-white w-full max-w-[210mm] p-4 print:p-2 mx-auto;
+
+    &__left {
+      @apply flex-1;
+    }
+
+    &__right {
+      @apply flex-2;
+    }
   }
 
   /* Header block */
   .cv-header {
-    @apply flex flex-col sm:flex-row items-start mb-4 pb-2 border-b border-blue-100;
+    @apply flex flex-col sm:flex-row items-start mb-3;
 
 		&__content {
 			@apply flex-1;
@@ -166,7 +189,7 @@
 
   /* Education block */
   .cv-education {
-    @apply mb-3 pb-2;
+    @apply mb-1;
 
 		&__header {
       @apply mb-1;
@@ -192,6 +215,19 @@
       @apply text-sm marker:text-blue-500;
 		}
   }
+
+	/* Competence block */
+	.cv-competence {
+		@apply text-sm mb-2;
+
+		&__name {
+			@apply font-semibold text-gray-900;
+		}
+
+		&__description {
+			@apply text-gray-700 leading-snug;
+		}
+	}
 
   @media print {
     .cv-page {

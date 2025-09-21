@@ -8,6 +8,7 @@
 	"cv_about": "À propos",
 	"cv_section_experiences": "Expériences",
 	"cv_section_education": "Études & diplômes",
+    "cv_section_competences": "Competences",
 	"cv_present": "Présent",
 	"cv_obtained_in": "Obtenu en {year}"
 }

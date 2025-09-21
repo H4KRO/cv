@@ -36,14 +36,23 @@ export const education = sqliteTable('education', {
 	courses: text('courses', { mode: 'json' }).$type<string[]>().notNull(),
 })
 
+export const competence = sqliteTable('competence', {
+	id: text('id').primaryKey(),
+	locale: text('locale').references(() => locale.id),
+	name: text('name').notNull(),
+	description: text('description').notNull(),
+})
+
 export type Locale = InferSelectModel<typeof locale>
 export type Header = InferSelectModel<typeof header>
 export type Experience = InferSelectModel<typeof experience>
 export type Education = InferSelectModel<typeof education>
+export type Competence = InferSelectModel<typeof competence>
 
 export type CV = {
 	locale: Locale,
 	header: Header,
 	experiences: Experience[],
 	educations: Education[],
+	competences: Competence[],
 }
