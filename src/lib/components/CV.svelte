@@ -13,20 +13,9 @@
 
 		let months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
 		if (months < 0) months = 0;
-
-		if (months < 12) {
-			return m.cv_duration_month({ months });
-		}
-
 		const years = Math.floor(months / 12);
 		const remainingMonths = months % 12;
-
-		if (remainingMonths === 0) {
-			return m.cv_duration_year({ years });
-		}
-
-		// Années + mois
-		return m.cv_duration_year_month({ years, months: remainingMonths });
+		return m.cv_duration({ years, months: remainingMonths });
 	}
 
 </script>
@@ -102,7 +91,7 @@
 								<p class="cv-experience__company">{experience.company}</p>
 								<p class="cv-experience__dates">
 									{new Date(experience.startDate).toLocaleDateString(dateLocale, { month: 'short', year: 'numeric' })} –
-									{experience.endDate ? new Date(experience.endDate).toLocaleDateString(dateLocale, { month: 'short', year: 'numeric' }) : m.cv_present()} &nbsp; {formatDuration(experience.startDate, experience.endDate)}
+									{experience.endDate ? new Date(experience.endDate).toLocaleDateString(dateLocale, { month: 'short', year: 'numeric' }) : m.cv_present()}, {formatDuration(experience.startDate, experience.endDate)}
 								</p>
 							</div>
 							<ul class="cv-experience__responsibilities">
@@ -188,11 +177,7 @@
     @apply grid grid-cols-1 gap-y-0.5 text-sm;
 
 		&__item {
-			@apply flex items-baseline;
-		}
-
-		&__item strong {
-			@apply mr-2 text-gray-600;
+			@apply flex items-baseline font-medium;
 		}
   }
 

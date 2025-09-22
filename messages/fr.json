@@ -12,36 +12,17 @@
   "cv_section_hobbies": "Centres d'intérêt",
   "cv_present": "Présent",
   "cv_obtained_in": "Obtenu en {year}",
-
-  "cv_duration_month": [
-    {
-      "declarations": ["input months", "local monthsPlural = months: plural"],
-      "selectors": ["monthsPlural"],
-      "match": {
-        "monthsPlural=one": "1 mois",
-        "monthsPlural=other": "{months} mois"
-      }
-    }
-  ],
-
-  "cv_duration_year": [
-    {
-      "declarations": ["input years", "local yearsPlural = years: plural"],
-      "selectors": ["yearsPlural"],
-      "match": {
-        "yearsPlural=one": "1 an",
-        "yearsPlural=other": "{years} ans"
-      }
-    }
-  ],
-
-  "cv_duration_year_month": [
+  "cv_duration": [
     {
       "declarations": ["input years", "input months", "local yearsPlural = years: plural", "local monthsPlural = months: plural"],
       "selectors": ["yearsPlural", "monthsPlural"],
       "match": {
+        "years=0, monthsPlural=one": "1 mois",
+        "years=0, monthsPlural=other": "{months} mois",
+        "yearsPlural=one, months=0": "1 an",
         "yearsPlural=one, monthsPlural=one": "1 an et 1 mois",
         "yearsPlural=one, monthsPlural=other": "1 an et {months} mois",
+        "yearsPlural=other, months=0": "{years} ans",
         "yearsPlural=other, monthsPlural=one": "{years} ans et 1 mois",
         "yearsPlural=other, monthsPlural=other": "{years} ans et {months} mois"
       }
