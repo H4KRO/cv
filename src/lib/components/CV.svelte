@@ -14,12 +14,18 @@
 			<div class="cv__left">
 				<header class="cv-header">
 					<div class="cv-header__content">
+						<div class="cv-picture">
+							<img src="/picture-of-me.jpg" alt="Photo de profil" class="cv-picture__image" />
+						</div>
 						<h1 class="cv-header__title">{cv.header.name}</h1>
 						<h2 class="cv-header__subtitle">{cv.header.title}</h2>
 						<div class="cv-contact">
 							<p class="cv-contact__item"><a href="mailto:{cv.header.mail}">{cv.header.mail}</a></p>
 							<p class="cv-contact__item"><a href="tel:{cv.header.phone}">{cv.header.phone}</a></p>
-							<p class="cv-contact__item"><a href="https://maps.google.com/?q={cv.header.address}" target="_blank" rel="noopener noreferrer">{cv.header.address}</a></p>
+							<p class="cv-contact__item"><a href="https://maps.google.com/?q={cv.header.addressLine1} {cv.header.postalCode} {cv.header.city}" target="_blank" rel="noopener noreferrer">
+								{cv.header.addressLine1}, <br />
+								{cv.header.postalCode} {cv.header.city}
+							</a></p>
 						</div>
 						<div class="cv-about">
 							<h3 class="cv-about__title">{m.cv_about()}</h3>
@@ -50,14 +56,14 @@
 					{/each}
 				</section>
 				<section class="cv-section">
-					<h2 class="cv-section__title">{m.cv_section_competences()}</h2>
-					{#each cv.competences as competence (competence.id)}
-						<p class="cv-competence">
-							<span class="cv-competence__name">
-								{competence.name}
+					<h2 class="cv-section__title">{m.cv_section_hobbies()}</h2>
+					{#each cv.hobbies as hobby (hobby.id)}
+						<p class="cv-hobby">
+							<span class="cv-hobby__name">
+								{hobby.name}
 							</span>
-							<span class="cv-competence__description">
-								{competence.description}
+							<span class="cv-hobby__description">
+								{hobby.description}
 							</span>
 						</p>
 					{/each}
@@ -84,12 +90,32 @@
 						</div>
 					{/each}
 				</section>
+				<section class="cv-section">
+					<h2 class="cv-section__title">{m.cv_section_competences()}</h2>
+					{#each cv.competences as competence (competence.id)}
+						<p class="cv-competence">
+							<span class="cv-competence__name">
+								{competence.name}
+							</span>
+							<span class="cv-competence__description">
+								{competence.description}
+							</span>
+						</p>
+					{/each}
+				</section>
 			</div>
 		</div>
 	</div>
 {/if}
 
 <style lang="scss">
+	%panel {
+		@apply flex flex-col gap-4;
+	}
+
+	%items {
+		@apply flex flex-col gap-1;
+	}
   .cv-page {
     @apply bg-gray-50 p-2 print:p-0 min-h-screen flex justify-center;
   }
@@ -98,34 +124,45 @@
     @apply flex flex-row flex-wrap gap-5 bg-white w-full max-w-[210mm] p-4 print:p-2 mx-auto;
 
     &__left {
-      @apply flex-1;
+			@extend %panel;
+      @apply flex-2;
     }
 
     &__right {
-      @apply flex-2;
+      @extend %panel;
+      @apply flex-5;
     }
   }
 
   /* Header block */
   .cv-header {
-    @apply flex flex-col sm:flex-row items-start mb-3;
+    @apply sm:flex-row items-start;
 
 		&__content {
-			@apply flex-1;
+      @extend %items;
+			@apply flex-1 text-gray-700;
 		}
 
 		&__title {
-			@apply text-xl font-bold text-gray-900 mb-0.5;
+			@apply text-xl font-bold text-gray-900;
 		}
 
 		&__subtitle {
-			@apply text-lg font-semibold text-blue-600 mb-2;
+			@apply text-lg font-semibold text-blue-600;
 		}
   }
 
+	/* Picture block */
+	.cv-picture {
+
+		&__image {
+			@apply rounded-full w-40 h-40 object-cover;
+		}
+	}
+
   /* Contact block */
   .cv-contact {
-    @apply grid grid-cols-1 gap-y-0.5 mb-2 text-sm;
+    @apply grid grid-cols-1 gap-y-0.5 text-sm;
 
 		&__item {
 			@apply flex items-baseline;
@@ -138,10 +175,8 @@
 
   /* About block */
   .cv-about {
-    @apply mt-2;
-
 		&__title {
-      @apply text-sm font-semibold text-gray-700 uppercase tracking-wider mb-1;
+      @apply text-sm font-semibold text-gray-700 uppercase tracking-wider;
     }
 
 		&__text {
@@ -151,19 +186,18 @@
 
   /* Section block */
   .cv-section {
-    @apply mb-3 min-h-[min-content];
+    @extend %items;
+    @apply min-h-[min-content];
 
 		&__title {
-      @apply text-lg font-bold text-gray-900 mb-2 pb-0.5 border-b border-blue-200 uppercase tracking-wider;
+      @apply text-lg font-bold text-gray-900 border-b border-blue-200 uppercase tracking-wider;
     }
   }
 
   /* Experience block */
   .cv-experience {
-    @apply mb-3 pb-2;
 
 		&__header {
-      @apply mb-1;
 		}
 
 		&__title {
@@ -179,7 +213,7 @@
 		}
 
 		&__responsibilities {
-      @apply list-disc pl-4 space-y-0.5 text-gray-700 mt-1;
+      @apply list-disc pl-4 space-y-0.5 text-gray-700;
     }
 
 		&__responsibility {
@@ -189,10 +223,8 @@
 
   /* Education block */
   .cv-education {
-    @apply mb-1;
 
 		&__header {
-      @apply mb-1;
 		}
 
 		&__grade {
@@ -208,7 +240,7 @@
 		}
 
 		&__courses {
-      @apply list-disc pl-4 space-y-0.5 text-gray-700 mt-1;
+      @apply list-disc pl-4 space-y-0.5 text-gray-700;
     }
 
 		&__course {
@@ -218,7 +250,7 @@
 
 	/* Competence block */
 	.cv-competence {
-		@apply text-sm mb-2;
+		@apply text-sm;
 
 		&__name {
 			@apply font-semibold text-gray-900;
@@ -228,6 +260,19 @@
 			@apply text-gray-700 leading-snug;
 		}
 	}
+
+  /* Hobby block */
+  .cv-hobby {
+    @apply text-sm;
+
+    &__name {
+      @apply font-semibold text-gray-900;
+    }
+
+    &__description {
+      @apply text-gray-700 leading-snug;
+    }
+  }
 
   @media print {
     .cv-page {

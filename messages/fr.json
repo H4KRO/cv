@@ -9,6 +9,7 @@
 	"cv_section_experiences": "Expériences",
 	"cv_section_education": "Études & diplômes",
     "cv_section_competences": "Competences",
+  "cv_section_hobbies": "Centres d'intérêt",
 	"cv_present": "Présent",
 	"cv_obtained_in": "Obtenu en {year}"
 }

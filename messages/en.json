@@ -9,6 +9,7 @@
 	"cv_section_experiences": "Experience",
 	"cv_section_education": "Education",
     "cv_section_competences": "Competences",
+    "cv_section_hobbies": "Hobbies",
 	"cv_present": "Present",
 	"cv_obtained_in": "Obtained in {year}"
 }

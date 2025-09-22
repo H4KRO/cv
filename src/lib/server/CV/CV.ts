@@ -26,8 +26,14 @@ async function getCompetencesByLocale(localeId: string) {
 	})
 }
 
+async function getHobbiesByLocale(localeId: string) {
+	return db.query.hobby.findMany({
+		where: eq(competence.locale, localeId),
+	})
+}
+
 export async function getCVByLocale(localeId: string): Promise<CV | null> {
-	const [localeRecord, header, experiences, educations, competences] = await Promise.all([
+	const [localeRecord, header, experiences, educations, competences, hobbies] = await Promise.all([
 		db.query.locale.findFirst({
 			where: eq(locale.id, localeId),
 		}),
@@ -35,6 +41,7 @@ export async function getCVByLocale(localeId: string): Promise<CV | null> {
 		getExperiencesByLocale(localeId),
 		getEducationsByLocale(localeId),
 		getCompetencesByLocale(localeId),
+		getHobbiesByLocale(localeId),
 	])
 
 	if (!localeRecord || !header) {
@@ -46,7 +53,8 @@ export async function getCVByLocale(localeId: string): Promise<CV | null> {
 		header,
 		experiences,
 		educations,
-		competences
+		competences,
+		hobbies
 	}
 }
 

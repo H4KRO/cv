@@ -9,7 +9,9 @@ export const header = sqliteTable('header', {
 	locale: text('locale').references(() => locale.id).primaryKey(),
 	mail: text('mail').notNull(),
 	phone: text('phone').notNull(),
-	address: text('address').notNull(),
+	addressLine1: text('address_line_1').notNull(),
+	postalCode: text('postal_code').notNull(),
+	city: text('city').notNull(),
 	name: text('name').notNull(),
 	title: text('title').notNull(),
 	dateOfBirth: text('date_of_birth').notNull(),
@@ -43,11 +45,20 @@ export const competence = sqliteTable('competence', {
 	description: text('description').notNull(),
 })
 
+export const hobby = sqliteTable('hobby', {
+	id: text('id').primaryKey(),
+	locale: text('locale').references(() => locale.id),
+	name: text('name').notNull(),
+	description: text('description').notNull(),
+
+})
+
 export type Locale = InferSelectModel<typeof locale>
 export type Header = InferSelectModel<typeof header>
 export type Experience = InferSelectModel<typeof experience>
 export type Education = InferSelectModel<typeof education>
 export type Competence = InferSelectModel<typeof competence>
+export type Hobbies = InferSelectModel<typeof hobby>
 
 export type CV = {
 	locale: Locale,
@@ -55,4 +66,5 @@ export type CV = {
 	experiences: Experience[],
 	educations: Education[],
 	competences: Competence[],
+	hobbies: Hobbies[],
 }
