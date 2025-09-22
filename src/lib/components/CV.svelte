@@ -6,6 +6,29 @@
 
 	const locale = getLocale();
 	const dateLocale = locale === 'fr' ? 'fr-FR' : 'en-US';
+
+	function formatDuration(startDate: string, endDate?: string | null): string {
+		const start = new Date(startDate);
+		const end = endDate ? new Date(endDate) : new Date();
+
+		let months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+		if (months < 0) months = 0;
+
+		if (months < 12) {
+			return m.cv_duration_month({ months });
+		}
+
+		const years = Math.floor(months / 12);
+		const remainingMonths = months % 12;
+
+		if (remainingMonths === 0) {
+			return m.cv_duration_year({ years });
+		}
+
+		// Années + mois
+		return m.cv_duration_year_month({ years, months: remainingMonths });
+	}
+
 </script>
 
 {#if cv}
@@ -79,7 +102,7 @@
 								<p class="cv-experience__company">{experience.company}</p>
 								<p class="cv-experience__dates">
 									{new Date(experience.startDate).toLocaleDateString(dateLocale, { month: 'short', year: 'numeric' })} –
-									{experience.endDate ? new Date(experience.endDate).toLocaleDateString(dateLocale, { month: 'short', year: 'numeric' }) : m.cv_present()}
+									{experience.endDate ? new Date(experience.endDate).toLocaleDateString(dateLocale, { month: 'short', year: 'numeric' }) : m.cv_present()} &nbsp; {formatDuration(experience.startDate, experience.endDate)}
 								</p>
 							</div>
 							<ul class="cv-experience__responsibilities">

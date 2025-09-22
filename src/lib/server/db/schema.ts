@@ -24,7 +24,7 @@ export const experience = sqliteTable('experience', {
 	title: text('title').notNull(),
 	company: text('company').notNull(),
 	startDate: text('start_date').notNull(),
-	endDate: text('end_date').notNull(),
+	endDate: text('end_date'),
 	responsibilities: text('responsibilities', { mode: 'json' }).$type<string[]>().notNull(),
 })
 

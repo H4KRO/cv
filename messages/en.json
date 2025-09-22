@@ -1,15 +1,50 @@
 {
-	"$schema": "https://inlang.com/schema/inlang-message-format",
-    "title": "Eddie Vallier's fullstack developer CV",
-	"hello_world": "Hello, {name} from en!",
-	"cv_email": "Email",
-	"cv_phone": "Phone",
-	"cv_address": "Address",
-	"cv_about": "About",
-	"cv_section_experiences": "Experience",
-	"cv_section_education": "Education",
-    "cv_section_competences": "Competences",
-    "cv_section_hobbies": "Hobbies",
-	"cv_present": "Present",
-	"cv_obtained_in": "Obtained in {year}"
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "title": "Eddie Vallier's fullstack developer CV",
+  "hello_world": "Hello, {name} from en!",
+  "cv_email": "Email",
+  "cv_phone": "Phone",
+  "cv_address": "Address",
+  "cv_about": "About",
+  "cv_section_experiences": "Experience",
+  "cv_section_education": "Education",
+  "cv_section_competences": "Competences",
+  "cv_section_hobbies": "Hobbies",
+  "cv_present": "Present",
+  "cv_obtained_in": "Obtained in {year}",
+
+  "cv_duration_month": [
+    {
+      "declarations": ["input months", "local monthsPlural = months: plural"],
+      "selectors": ["monthsPlural"],
+      "match": {
+        "monthsPlural=one": "1 month",
+        "monthsPlural=other": "{months} months"
+      }
+    }
+  ],
+
+  "cv_duration_year": [
+    {
+      "declarations": ["input years", "local yearsPlural = years: plural"],
+      "selectors": ["yearsPlural"],
+      "match": {
+        "yearsPlural=one": "1 year",
+        "yearsPlural=other": "{years} years"
+      }
+    }
+  ],
+
+  "cv_duration_year_month": [
+    {
+      "declarations": ["input years", "input months", "local yearsPlural = years: plural", "local monthsPlural = months: plural"],
+      "selectors": ["yearsPlural", "monthsPlural"],
+      "match": {
+        "yearsPlural=one, monthsPlural=one": "1 year and 1 month",
+        "yearsPlural=one, monthsPlural=other": "1 year and {months} months",
+        "yearsPlural=other, monthsPlural=one": "{years} years and 1 month",
+        "yearsPlural=other, monthsPlural=other": "{years} years and {months} months"
+      }
+    }
+  ]
 }
